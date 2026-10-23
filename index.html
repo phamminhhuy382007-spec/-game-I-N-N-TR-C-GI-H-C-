@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="description" content="Giúp Minh băng qua năm bản đồ, nói chuyện khéo léo và tìm được nhà vệ sinh dùng được trước khi hết giờ vào học.">
+<meta name="podbot-orientation" content="landscape">
+<meta name="podbot-start" content="Enter">
+<title>ĐẠI NẠN TRƯỚC GIỜ HỌC</title>
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="style.css">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="mindblown">
+<meta property="og:title" content="urgent-morning-game">
+<meta property="og:description" content="Giúp Minh băng qua năm bản đồ, nói chuyện khéo léo và tìm được nhà vệ sinh dùng được trước khi hết giờ vào học.">
+<meta property="og:url" content="https://urgent-morning-game.mindblown.ai/">
+<meta property="og:image" content="https://urgent-morning-game.mindblown.ai/thumb.webp">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="urgent-morning-game">
+<meta name="twitter:description" content="Giúp Minh băng qua năm bản đồ, nói chuyện khéo léo và tìm được nhà vệ sinh dùng được trước khi hết giờ vào học.">
+<meta name="twitter:image" content="https://urgent-morning-game.mindblown.ai/thumb.webp">
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAA/1BMVEXlnRX1pwPlXAH52V/27d3sKhrzlAH52iKlZghYJhH3bgAwEg/u2hz64J3xmAPz9ef57KemEwPisl7ZcQD52Bb/AABnYF1lSx3ZbgD05LOqVQC6UAGqqlW9oWL/f3/cuZHJvsr4xwv39GD37dR/fwB///+AXEW6vdC/w7//qlX/qqr15b357s4AAAD7xwb4qAXoeAL8uATrhQLzmQLTZwH81gb86bPFWgH+5An99tH//QDbcwH72I4SAAD5y26/fwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADqOUkZAAAAQHRSTlPyFPD/8v5i8v3/C/8g8KMcEv7/XqUB//6pagNJA/8C//9nEmcCAv///wMDhLkA/v36/v38/P77/f79A/v8//8EtAR+KwAAAm9JREFUeNpdk4lW2zAQRUeyIy9x7OwJUAqU7q12yTvm//+qI0MOlDnezryr55E0An6JHu8q7rq44u8DLh9r/hiv6i6Ou/pv/PhtXX0A1vyq62okui48rjDxH/CbV6swHrW4jrvVquJf3gPz+LF+CWTGrvvz6jEDn/l6VdfTWI8Bwjuqa/T4fAGqvhqncYQogu00TRBNMI5TjelX4BNfRwBgBmuMEFZJZRKAcY3CC0B6AtIMiwWlVEq6wI/BSCD9rxnoe0442VtF6UJJra1CUMkSk7z/ygEXsAjFFIzRjfRR5O2GMjbncKY98GLf7gveP+whTUUAREqhfOhfBSiSVgpWgG9tKhKdhCuViYCCCdkmBaDu7G4vvE9PGfgo8ZCd0taLklmHBFAD2uRS+FOWok3StgLS5ckLmVsNhsKN08KCFiKVIvEthkf/VAhdWqHdDfCz0Vpq4cU2vr9Dwt/dx1uBgNVanTkcdkZaBFA/Hn9s23Y6Hn8GQlsrze4AnChrLAJj/LRc3rbtLb7iSeCKGTsQDjnfGRMsovh7lkXeR9nyGEf4W2PMjudw6AlVBpdYRKst6khsV5HQ0qqBkh5/ESxU2AQsLM0wUi+CPjiFBmE3CS/RAgkPT3Pg9IKBKlEKQH5gagiISLE+DBASd98pdshnALdbORcKhWyDkVmcIWYUCWclNMwzL6kbkJAbbJbFRlprhsaVKLwAeU9U0yChQzdh1xjjmkaRPr90dc4ZbdDDSDXrCnXKeP52Lp45Qw8XKg3lh/EsTOHtZAUC065xeAWUzQW8O5vXnJQozuEcduz1x9ONAwg7K1yRMyP8Mp7zf3Sbk+9myTBeAAAAAElFTkSuQmCC">
+</head>
+<body>
+<div id="game"></div>
+<div id="world-ui"></div>
+
+<!-- ============ HUD -->
+<div id="hud" class="hidden">
+  <div id="plate"><span id="plate-text">BẢN ĐỒ 1 · KHU PHỐ</span></div>
+  <div id="clock"><img src="img/ui_clock.webp" alt=""><span id="clock-digits">01:30</span></div>
+  <div id="stamps"></div>
+  <div id="note"><b>Mục tiêu:</b><span id="note-text"></span></div>
+  <div id="keys" class="desk-only">
+    <div class="kgroup"><div class="krow"><i class="k">W</i></div><div class="krow"><i class="k">A</i><i class="k">S</i><i class="k">D</i></div><small>Di chuyển</small></div>
+    <div class="kgroup"><div class="krow"><i class="k">E</i><i class="k wide">Space</i></div><small>Tương tác</small></div>
+    <div class="kgroup"><div class="krow"><i class="k wide">Esc</i></div><small>Tạm dừng</small></div>
+  </div>
+  <button id="btn-pause" class="roundbtn" aria-label="Tạm dừng">II</button>
+  <button id="btn-sound" class="roundbtn" aria-label="Âm thanh">♪</button>
+</div>
+
+<!-- ============ touch controls -->
+<div id="touch" class="hidden">
+  <div id="stick"><div id="stick-knob"></div></div>
+  <button id="btn-act"><b>E</b><span id="btn-act-label">Tương tác</span></button>
+</div>
+
+<!-- ============ dialogue: a page of vở ô li -->
+<div id="dim" class="hidden"></div>
+<div id="dialog" class="hidden" role="dialog" aria-live="polite">
+  <div class="page">
+    <div class="speaker">
+      <div class="portrait"><div id="portrait-img"></div></div>
+      <div id="speaker-name" class="tagname">Cô bán hàng</div>
+    </div>
+    <div class="body">
+      <p id="dlg-text"></p>
+      <ol id="dlg-choices"></ol>
+      <div id="dlg-reaction" class="hidden">
+        <p id="dlg-react-text"></p>
+        <div id="dlg-react-result"></div>
+        <button id="dlg-continue" class="tab small">Tiếp tục <i class="k">E</i></button>
+      </div>
+      <div class="dlg-hint desk-only">Chọn bằng <i class="k">↑</i><i class="k">↓</i> rồi <i class="k">E</i> · hoặc bấm <i class="k">1</i>-<i class="k">4</i> · đồng hồ đang tạm dừng</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ screens -->
+<section id="menu" class="screen">
+  <div class="cover">
+    <div class="cover-top">
+      <div class="cover-label">VỞ ÔLI · 48 TRANG</div>
+      <h1 class="title">ĐẠI NẠN<br>TRƯỚC GIỜ HỌC</h1>
+      <div class="namebox"><div>Họ tên: <b>Nguyễn Văn Minh</b></div><div>Lớp: <b>10A3</b> · Môn: <b>Chạy đua với thời gian</b></div></div>
+      <div class="menu-buttons">
+        <button id="btn-start" class="tab red">Bắt đầu</button>
+        <button id="btn-howto" class="tab">Hướng dẫn</button>
+        <button id="btn-board" class="tab">Bảng thành tích</button>
+      </div>
+      <div id="loading" class="loading">Đang chuẩn bị cặp sách...</div>
+    </div>
+    <div class="cover-art"><img src="img/menu_cover.webp" alt="Minh chạy trên phố"></div>
+  </div>
+</section>
+
+<section id="tutorial" class="screen hidden">
+  <div class="sheet tut">
+    <h2 class="stampish">HƯỚNG DẪN</h2>
+    <div class="tut-grid">
+      <div class="tut-box">
+        <h3>Điều khiển</h3>
+        <div class="tut-row"><span><i class="k">W</i><i class="k">A</i><i class="k">S</i><i class="k">D</i> hoặc <i class="k">↑</i><i class="k">←</i><i class="k">↓</i><i class="k">→</i></span><span>Di chuyển</span></div>
+        <div class="tut-row"><span><i class="k">E</i> hoặc <i class="k wide">Space</i></span><span>Nói chuyện, xem, vào WC</span></div>
+        <div class="tut-row"><span><i class="k wide">Esc</i></span><span>Tạm dừng</span></div>
+        <div class="tut-row touch-note"><span>Điện thoại:</span><span>cần gạt bên trái để đi, nút <b>E</b> bên phải để tương tác, nút <b>II</b> để tạm dừng</span></div>
+      </div>
+      <div class="tut-box">
+        <h3>Đồng hồ báo thức</h3>
+        <p>Mỗi bản đồ có thời gian riêng. Đồng hồ <b>dừng</b> khi đang nói chuyện hoặc tạm dừng. Còn dưới 15 giây, đồng hồ chuyển đỏ và rung lên!</p>
+        <p>Trả lời thiếu khéo có thể <span class="red">mất 3, 5 hoặc 8 giây</span>. Hết giờ là thua màn đó, nhưng có thể thử lại.</p>
+      </div>
+      <div class="tut-box legend">
+        <h3>Năm loại nhà vệ sinh</h3>
+        <div class="lg"><img src="img/wc_ok.webp" alt=""><span><b class="g">Cửa xanh lá</b>: DÙNG ĐƯỢC, vào là qua màn</span></div>
+        <div class="lg"><img src="img/wc_locked.webp" alt=""><span><b class="r">Cửa đỏ</b>: KHÓA</span></div>
+        <div class="lg"><img src="img/wc_maint.webp" alt=""><span><b>Cửa xám</b>: ĐANG SỬA</span></div>
+        <div class="lg"><img src="img/wc_queue.webp" alt=""><span><b class="a">Cửa vàng cam</b>: đang có người, chờ lâu</span></div>
+        <div class="lg"><img src="img/wc_need_key.webp" alt=""><span><b class="b">Cửa xanh dương</b>: cần giải quyết việc gì đó trước</span></div>
+      </div>
+      <div class="tut-box">
+        <h3>Đi đường</h3>
+        <p>Đến gần người hoặc đồ vật sẽ hiện phím <i class="k">E</i>. Mỗi tình huống chỉ chọn một lần. Lịch sự chưa chắc đã đúng lúc, từ chối chưa chắc đã sai: hãy nghĩ xem cách nào thực sự giúp được việc.</p>
+        <p>Qua 5 bản đồ, rồi còn một thử thách cuối 45 giây!</p>
+      </div>
+    </div>
+    <div class="row-buttons">
+      <button id="btn-tut-back" class="tab">Quay lại</button>
+      <button id="btn-tut-go" class="tab red">Vào học thôi!</button>
+    </div>
+  </div>
+</section>
+
+<section id="pause" class="screen hidden dimbg">
+  <div class="sheet small">
+    <div class="bigstamp">TẠM DỪNG</div>
+    <div class="pause-help">
+      <div><i class="k">WASD</i>/<i class="k">↑↓←→</i> di chuyển · <i class="k">E</i>/<i class="k">Space</i> tương tác · <i class="k">Esc</i> tạm dừng</div>
+      <div id="pause-objective"></div>
+    </div>
+    <div class="col-buttons">
+      <button id="btn-resume" class="tab red">Tiếp tục</button>
+      <button id="btn-retry-p" class="tab">Chơi lại màn này</button>
+      <button id="btn-restart-p" class="tab">Chơi lại từ đầu</button>
+      <button id="btn-menu-p" class="tab">Về menu chính</button>
+    </div>
+  </div>
+</section>
+
+<section id="fail" class="screen hidden dimbg">
+  <div class="fail-wrap">
+    <div class="bigstamp huge">HẾT GIỜ RỒI!</div>
+    <img id="fail-minh" src="img/minh_crouch.webp" alt="Minh đứng hình">
+    <p id="fail-line" class="ballpoint"></p>
+    <div class="fail-buttons">
+      <button id="btn-retry" class="tab red">Thử lại màn này</button>
+      <div class="spacer"></div>
+      <button id="btn-restart" class="tab">Chơi lại từ đầu</button>
+      <button id="btn-menu-f" class="tab">Về menu chính</button>
+    </div>
+  </div>
+</section>
+
+<section id="flip" class="hidden"><div class="flip-page"><div id="flip-plate" class="plate-big"></div><div id="flip-sub" class="ballpoint"></div></div></section>
+
+<section id="final" class="screen hidden">
+  <div class="final-scene">
+    <img id="final-bg" src="img/final_scene.webp" alt="Cửa nhà vệ sinh">
+    <div id="final-door-fx"></div>
+    <div id="final-dark"></div>
+  </div>
+  <div id="ruler">
+    <img src="img/ui_ruler.webp" alt="">
+    <div id="ruler-fill"></div>
+    <div id="ruler-marks"></div>
+    <div id="ruler-scribble"></div>
+    <div id="ruler-pct">0%</div>
+  </div>
+  <div id="final-fx"></div>
+  <button id="btn-hold"><span class="hold-big">GIỮ ĐỂ TẬP TRUNG</span><span class="hold-small desk-only">giữ phím <i class="k wide">Space</i> hoặc <i class="k">E</i></span><span class="hold-small touch-only">nhấn và giữ nút này</span></button>
+</section>
+
+<section id="ending" class="screen hidden">
+  <div class="comic">
+    <div id="panels"></div>
+    <div class="row-buttons end-buttons">
+      <button id="btn-end-next" class="tab">Tiếp ▸</button>
+      <button id="btn-end-results" class="tab red hidden">Xem kết quả</button>
+    </div>
+  </div>
+</section>
+
+<section id="results" class="screen hidden">
+  <div class="spread">
+    <div class="slip">
+      <h2>PHIẾU BÁO KẾT QUẢ</h2>
+      <div class="slip-sub">Trường THPT Gần Nhà · Buổi sáng hôm nay</div>
+      <div class="field"><label>Họ tên học sinh:</label><span class="hand">Nguyễn Văn Minh</span></div>
+      <div class="field"><label>Số bản đồ hoàn thành:</label><span class="hand" id="r-maps"></span></div>
+      <div class="field"><label>Thử thách cuối:</label><span class="hand" id="r-final"></span></div>
+      <div class="field"><label>Tổng thời gian:</label><span class="hand" id="r-time"></span></div>
+      <div class="field"><label>Số lần thất bại:</label><span class="hand" id="r-fails"></span></div>
+      <div class="field"><label>Nhận xét:</label><span class="hand" id="r-remark"></span></div>
+      <div id="r-stamp" class="bigstamp slipstamp"></div>
+    </div>
+    <div class="board">
+      <h3>BẢNG THÀNH TÍCH (máy này)</h3>
+      <table><thead><tr><th>#</th><th>Thời gian</th><th>Thất bại</th><th>Ngày</th></tr></thead><tbody id="board-rows"></tbody></table>
+      <p class="board-note" id="board-note">Xếp theo thời gian nhanh nhất, bằng nhau thì ít lần thất bại hơn xếp trên.</p>
+    </div>
+  </div>
+  <div class="row-buttons res-buttons">
+    <button id="btn-again" class="tab red">Chơi lại</button>
+    <button id="btn-menu-r" class="tab">Về menu chính</button>
+  </div>
+</section>
+
+<script src="https://mindblown.ai/lib/phaser-3.90.0/phaser.min.js"></script>
+<script src="js/geometry.js"></script>
+<script src="js/maps.js"></script>
+<script src="js/data.js"></script>
+<script src="js/game.js"></script>
+<script src="https://api.mindblown.ai/pod.js" data-game="b7dc02ad-0638-458c-8de9-679274f9b21a" data-slug="urgent-morning-game"></script>
+</body>
+</html>
